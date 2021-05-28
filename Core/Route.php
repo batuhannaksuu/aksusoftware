@@ -38,6 +38,6 @@ class Route
 
     public static function getUrl()
     {
-        return $_SERVER['REQUEST_URI'];
+        return str_replace(getenv('BASE_PATH'),null,$_SERVER['REQUEST_URI']);
     }
 }
