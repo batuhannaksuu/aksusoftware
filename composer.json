@@ -1,0 +1,14 @@
+{
+    "name": "aksus/aksusoftware",
+    "description": "Framework For AksuSoftware",
+    "type": "framework",
+    "require": {
+        "vlucas/phpdotenv": "^5.3"
+    },
+    "authors": [
+        {
+            "name": "Batuhan AKSU",
+            "email": "aksusoftware@hotmail.com"
+        }
+    ]
+}
