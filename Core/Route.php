@@ -20,6 +20,24 @@ class Route
 
     public static function dispatch()
     {
-        print_r(self::$routes);
+        echo self::getUrl();
+//        $method = self::getMethod();
+//        foreach (self::$routes[$method] as $path => $callback)
+//        {
+//            echo $path . PHP_EOL;
+//        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getMethod()
+    {
+        return strtolower($_SERVER['REQUEST_METHOD']);
+    }
+
+    public static function getUrl()
+    {
+        return $_SERVER['REQUEST_URI'];
     }
 }
