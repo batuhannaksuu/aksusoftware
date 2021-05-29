@@ -7,20 +7,15 @@ $app = new \AksuSoftware\Core\App();
 $dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__);
 $dotenv->load();
 
-Route::get('/','Home@index');
+Route::get('/','Home@index')->name('home');
+Route::get('/user/{id}','User@detail')->name('user');
 
-Route::get('/user/{id}','User@detail');
+Route::url('user',['id' => 3]);
 
-Route::post('/updateuser',function (){
-    return 'update user';
-});
+//Route::get('/user/{id}','User@detail');
+//
+//Route::post('/updateuser',function (){
+//    return 'update user';
+//});
 
 Route::dispatch();
-
-//Route::get('/','Home@index');
-//Route::get('users/:id','User@detail')->name('user');
-//
-//Route::prefix('/admin')->group(function (){
-//    Route::get('/','Home@index');
-//    Route::get('/users','User@index');
-//});
