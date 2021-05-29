@@ -9,20 +9,20 @@ use AksuSoftware\App\Controllers\Home;
 class Route
 {
     public static array $patterns = [
-        '{id}' => '([0-9]+)',
-        '{url}' => '([0-9a-zA-Z-_]+)'
+        '{id[0-9]?}' => '([0-9]+)',
+        '{url[0-9]}?}' => '([0-9a-zA-Z-_]+)'
     ];
 
     public static bool $hasRoute = false;
     public static array $routes = [];
-
+    public static string $prefix = '';
     /**
      * @param $path
      * @param $callback
      */
     public static function get($path, $callback): Route
     {
-        self::$routes['get'][$path] = [
+        self::$routes['get'][self::$prefix . $path] = [
             'callback' => $callback
         ];
         return new self();
@@ -47,9 +47,10 @@ class Route
         foreach (self::$routes[$method] as $path => $props) {
             $callback = $props['callback'];
             foreach (self::$patterns as $key => $pattern) {
-                $path = str_replace($key, $pattern, $path);
+                $path = preg_replace('#' . $key . '#', $pattern, $path);
             }
             $pattern = '#^' . $path . '$#';
+
             if (preg_match($pattern, $url, $params)) {
                 array_shift($params);
 
@@ -100,11 +101,31 @@ class Route
         //print_r(self::$routes);
     }
 
-    public static function url($name)
+    public static function url(string $name,array $params = []): string
     {
-        $route = array_filter(self::$routes['get'],function($route) use($name){
+        $route = array_key_first(array_filter(self::$routes['get'],function($route) use($name){
             return $route['name'] === $name;
-        });
-        print_r($route);
+        }));
+        return str_replace(array_keys($params),array_values($params),$route);
     }
+
+    /**
+     * @param $prefix
+     * @return Route
+     */
+    public static function prefix($prefix) : Route
+    {
+        self::$prefix = $prefix;
+        return new self();
+    }
+
+    /**
+     * @param \Closure $closure
+     */
+    public static function group(\Closure $closure): void
+    {
+        $closure();
+        self::$prefix = '';
+    }
+
 }
