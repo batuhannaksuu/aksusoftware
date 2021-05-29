@@ -98,10 +98,9 @@ class Route
     {
         $key = array_key_last(self::$routes['get']);
         self::$routes['get'][$key]['name'] = $name;
-        //print_r(self::$routes);
     }
 
-    public static function url(string $name,array $params = []): string
+    public static function url(string $name, array $params = []): string
     {
         $route = array_key_first(array_filter(self::$routes['get'],function($route) use($name){
             return $route['name'] === $name;

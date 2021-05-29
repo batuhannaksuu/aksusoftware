@@ -19,12 +19,6 @@ Route::prefix('/admin')->group(function (){
     });
 });
 
-//echo Route::url('user',['{id1}' => 3,'{id2}' => 5]);
 
-//Route::get('/user/{id}','User@detail');
-//
-//Route::post('/updateuser',function (){
-//    return 'update user';
-//});
 
 Route::dispatch();

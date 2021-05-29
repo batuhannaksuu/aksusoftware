@@ -1,5 +1,7 @@
 <?php
 
+use AksuSoftware\Core\Route;
+
 /**
  * @param string $name
  * @param array $params
@@ -7,5 +9,5 @@
  */
 
 function route(string $name,array $params = []){
-    return \AksuSoftware\Core\Route::url($name,$params);
+    return Route::url($name,$params);
 }
